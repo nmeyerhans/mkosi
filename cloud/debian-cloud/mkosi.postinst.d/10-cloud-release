@@ -3,6 +3,6 @@
 [ -d "${BUILDROOT}/etc" ] || exit 0
 
 cat <<EOF > "${BUILDROOT}/etc/cloud-release"
-ID="$IMAGE_ID"
-VERSION="$IMAGE_VERSION"
+ID=$CLOUD_RELEASE_ID
+VERSION="$CLOUD_RELEASE_VERSION"
 EOF
