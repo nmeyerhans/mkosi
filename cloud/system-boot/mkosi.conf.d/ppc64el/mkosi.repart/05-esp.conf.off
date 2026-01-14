@@ -1,0 +1,12 @@
+[Partition]
+Type=esp
+Format=vfat
+CopyFiles=/boot/EFI:/EFI
+CopyFiles=/efi/EFI:/EFI
+CopyFiles=/boot/loader:/loader
+CopyFiles=/boot/nocloud:/nocloud
+CopyFiles=/boot:/
+CopyFiles=/efi:/
+SizeMinBytes=512M
+SizeMaxBytes=512M
+MountPoint=/boot/efi

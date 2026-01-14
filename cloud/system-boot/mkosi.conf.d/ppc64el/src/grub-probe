@@ -1,0 +1,46 @@
+#!/usr/bin/python3
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '--device',
+)
+parser.add_argument(
+    '--target',
+    choices=(
+        'abstraction',
+        'compatibility_hint',
+        'device',
+        'hints_string',
+        'fs',
+        'fs_uuid',
+        'partmap',
+        'partuuid',
+    ),
+)
+parser.add_argument(
+    'path',
+    nargs='?',
+)
+
+args = parser.parse_args()
+
+if args.target == 'compatibility_hint':
+    print('ieee1275/disk,gpt2')
+elif args.target == 'device':
+    print('##DEV##')
+elif args.target == 'fs':
+    print('ext2')
+elif args.target == 'fs_uuid':
+    # exit with error here so grub-mkconfig won't include the empty output in the generated config file...
+    exit(1)
+elif args.target == 'hints_string':
+    # Outputs space at the end [sic]
+    print('--hint=hd0,gpt2 ')
+elif args.target == 'ieee1275_hints':
+    print('hd0,gpt2 ')
+elif args.target == 'partmap':
+    print('gpt')
+elif args.target == 'partuuid':
+    print('##PARTUUID##')
