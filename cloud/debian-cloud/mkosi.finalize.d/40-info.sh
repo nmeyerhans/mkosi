@@ -6,10 +6,6 @@ ROOTCMD=mkosi-chroot
 
 ${ROOTCMD} dpkg -s > "${CHROOT_OUTPUTDIR}/${CLOUD_BUILD_NAME}.dpkg-status"
 
-echo -n ${PARTUUID_ROOT} > "${CHROOT_OUTPUTDIR}/${CLOUD_BUILD_NAME}.data.root.partuuid"
-echo -n ${PARTUUID_ESP} > "${CHROOT_OUTPUTDIR}/${CLOUD_BUILD_NAME}.data.efi.partuuid"
-echo -n ${FSUUID_ROOT} > "${CHROOT_OUTPUTDIR}/${CLOUD_BUILD_NAME}.data.root.fsuuid"
-
 exec > ${CHROOT_OUTPUTDIR}/${CLOUD_BUILD_NAME}.info
 
 function show() {
