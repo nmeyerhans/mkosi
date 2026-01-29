@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+set -euE
+
+. "${SRCDIR}/partitions"
+
+test -n "$PARTUUID_ROOT"
+
+# Call `grub-mkconfig` while using our own `grub-probe`.
+# `pkgdatadir` can be defined from the outside and is used to find
+# `grub-mkconfig_lib`.  `grub-mkconfig_lib` is then used to set a different
+# path for `grub-probe`.  `grub-mkconfig` won't emit root with UUID/PARTUUID,
+# if it can't find them in `/dev/disks`, so use a static string and replace it
+# here.
+echo "### Generating custom grub.cfg" >&2
+pkgdatadir="${SRCDIR}/system-boot/mkosi.conf.d/boot-hack/src" grub-mkconfig | \
+  sed \
+    -e "s|##DEV##|PARTUUID=${PARTUUID_ROOT}|" \
+    -e "s|##FSUUID##|${FSUUID_ROOT}|" \
+    -e "s|##PARTUUID##|${PARTUUID_ROOT}|" \
+    > /boot/grub/grub.cfg
+
+# this is unfortunate
+sed -i -E 's#(^\s*(initrd|linux)\s+)[^[:space:]]+(/boot/.*)#\1\3#' /boot/grub/grub.cfg
+
+exit 0

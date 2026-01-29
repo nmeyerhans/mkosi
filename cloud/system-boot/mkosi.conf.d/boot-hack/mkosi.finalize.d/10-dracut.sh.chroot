@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+for k in /boot/vmlinuz-*; do
+    kver=${k##/boot/vmlinuz-}
+    dracut --force --kver "$kver"
+done
