@@ -3,9 +3,9 @@ set -euE
 shopt -s extglob nullglob
 
 ROOTCMD=mkosi-chroot
-${ROOTCMD} dpkg -s > "${OUTPUTDIR}/${IMAGE_ID}_${IMAGE_VERSION}.dpkg-status"
+${ROOTCMD} dpkg -s > "${OUTPUTDIR}/${IMAGE_ID}.dpkg-status"
 
-exec > ${OUTPUTDIR}/${IMAGE_ID}_${IMAGE_VERSION}.info
+exec > ${OUTPUTDIR}/${IMAGE_ID}.info
 
 function show() {
   if [ ${#@} -ge 1 ]; then

@@ -2,5 +2,5 @@
 
 set -eo pipefail
 
-file="${IMAGE_ID}_${IMAGE_VERSION}.partitions"
+file="${IMAGE_ID}.partitions"
 mv "${SRCDIR}/partitions" "${OUTPUTDIR}/${file}"
