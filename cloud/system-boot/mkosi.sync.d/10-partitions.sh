@@ -3,6 +3,7 @@
 # Partition UUIDs are stored in various places within the images, including the
 # grub configuration and fstab, as well as in the partition/filesystem metadata
 # itself.
+# Note that not all images will use all UUIDs generated here.
 outfile="${SRCDIR}/partitions"
 
 echo PARTUUID_ROOT=$(uuid) > "${outfile}"
