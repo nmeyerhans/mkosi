@@ -24,9 +24,6 @@ mkosi-chroot grub-mkimage \
 
 test -f "${BUILDROOT}/boot/grub/powerpc-ieee1275/core.elf"
 
-# The grub image is installed using systemd-repart's CopyBlocks directive,
-# which requires the input file to be a multiple of 512 bytes in size.
-truncate --size=%512 "${BUILDROOT}/boot/grub/powerpc-ieee1275/core.elf"
 cp -v "${BUILDROOT}/boot/grub/powerpc-ieee1275/core.elf" "${BUILDROOT}/boot/grub/grub"
 
 exit 0

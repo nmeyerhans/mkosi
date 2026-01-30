@@ -2,18 +2,18 @@
 
 set -euE
 
+. "${SRCDIR}/partitions"
+
+test -n "$PARTUUID_ROOT"
+
 # Call `grub-mkconfig` while using our own `grub-probe`.
 # `pkgdatadir` can be defined from the outside and is used to find
 # `grub-mkconfig_lib`.  `grub-mkconfig_lib` is then used to set a different
 # path for `grub-probe`.  `grub-mkconfig` won't emit root with UUID/PARTUUID,
 # if it can't find them in `/dev/disks`, so use a static string and replace it
 # here.
-. "${SRCDIR}/partitions"
-
-test -n "$PARTUUID_ROOT"
-
-echo "### Generating custom grub.cfg"
-pkgdatadir="${SRCDIR}/system-boot/mkosi.conf.d/ppc64el/src" grub-mkconfig | \
+echo "### Generating custom grub.cfg" >&2
+pkgdatadir="${SRCDIR}/system-boot/src" grub-mkconfig | \
   sed \
     -e "s|##DEV##|PARTUUID=${PARTUUID_ROOT}|" \
     -e "s|##FSUUID##|${FSUUID_ROOT}|" \
@@ -23,11 +23,4 @@ pkgdatadir="${SRCDIR}/system-boot/mkosi.conf.d/ppc64el/src" grub-mkconfig | \
 # this is unfortunate
 sed -i -E 's#(^\s*(initrd|linux)\s+)[^[:space:]]+(/boot/.*)#\1\3#' /boot/grub/grub.cfg
 
-if [ -n "$MKOSI_DEBUG" ]; then
-    echo "### DEBUG 25-grub-ppc64le.sh" >&2
-    grep PARTUUID /boot/grub/grub.cfg >&2
-
-    echo "### DEBUG env" >&2
-    env | sort >&2
-    echo "### END env" >&2
-fi
+exit 0

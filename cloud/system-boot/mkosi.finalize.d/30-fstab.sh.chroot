@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+. "${SRCDIR}/partitions"
+
+cat <<EOF > /etc/fstab
+PARTUUID=${PARTUUID_ROOT} / ext4 rw,discard,errors=remount-ro,x-systemd.growfs 0 1
+EOF
+
+case "$DISTRIBUTION_ARCHITECTURE" in
+    amd64|arm64)
+        echo "PARTUUID=${PARTUUID_ESP} /boot/efi vfat defaults,umask=077 0 2" >> /etc/fstab
+        ;;
+esac

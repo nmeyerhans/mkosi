@@ -1,3 +1,2 @@
 #!/usr/bin/bash
 
-rm -rfv system-boot/mkosi.conf.d/ppc64el/mkosi.repart/10-root.conf.d
