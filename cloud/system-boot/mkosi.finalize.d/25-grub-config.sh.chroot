@@ -5,6 +5,7 @@ set -euE
 . "${SRCDIR}/partitions"
 
 test -n "$PARTUUID_ROOT"
+mkdir -p "/boot/grub"
 
 # Call `grub-mkconfig` while using our own `grub-probe`.
 # `pkgdatadir` can be defined from the outside and is used to find
