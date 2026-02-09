@@ -4,7 +4,13 @@ set -euE
 
 . "${SRCDIR}/partitions"
 
+# Fail if we're missing critical dependencies. This is mostly a check to ensure
+# visibility of regressions when developing, as the grub-mkconfig will fail
+# silently if any of these are missing (ask me how I know...)
 test -n "$PARTUUID_ROOT"
+test -n "$FSUUID_ROOT"
+test -d "${SRCDIR}/mkosi.conf.d/system-boot/src"
+
 mkdir -p "/boot/grub"
 
 # Call `grub-mkconfig` while using our own `grub-probe`.
@@ -14,7 +20,7 @@ mkdir -p "/boot/grub"
 # if it can't find them in `/dev/disks`, so use a static string and replace it
 # here.
 echo "### Generating custom grub.cfg" >&2
-pkgdatadir="${SRCDIR}/system-boot/src" grub-mkconfig | \
+pkgdatadir="${SRCDIR}/mkosi.conf.d/system-boot/src" grub-mkconfig | \
   sed \
     -e "s|##DEV##|PARTUUID=${PARTUUID_ROOT}|" \
     -e "s|##FSUUID##|${FSUUID_ROOT}|" \
