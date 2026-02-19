@@ -5,7 +5,7 @@ shopt -s nullglob
 generated=
 for k in /boot/vmlinu[xz]-*; do
     kver=${k##/boot/vmlinu[xz]-}
-    dracut --force --kver "$kver"
+    dracut --reproducible --force --kver "$kver"
     generated=1
 done
 
