@@ -6,9 +6,9 @@
 # Note that not all images will use all UUIDs generated here.
 outfile="${SRCDIR}/partitions"
 
-echo PARTUUID_ROOT=$(uuid) > "${outfile}"
-echo FSUUID_ROOT=$(uuid) >> "${outfile}"
-echo PARTUUID_ESP=$(uuid) >> "${outfile}"
+echo PARTUUID_ROOT=$(uuid -v 5 "$SEED_UUID" PARTUUID_ROOT) > "${outfile}"
+echo FSUUID_ROOT=$(uuid -v 5 "$SEED_UUID" FSUUID_ROOT) >> "${outfile}"
+echo PARTUUID_ESP=$(uuid -v 5 "$SEED_UUID" PARTUUID_ESP) >> "${outfile}"
 
 . "${outfile}"
 
