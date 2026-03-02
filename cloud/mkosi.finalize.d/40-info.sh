@@ -13,6 +13,10 @@ function show() {
   fi
 }
 
+echo "SEED_UUID=$SEED_UUID"
+echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH"
+echo "VERSION=$CLOUD_RELEASE_VERSION"
+
 echo "--- CLOUD RELEASE ---"
 cat ${BUILDROOT}/etc/cloud-release
 echo "--- END CLOUD RELEASE --- "
