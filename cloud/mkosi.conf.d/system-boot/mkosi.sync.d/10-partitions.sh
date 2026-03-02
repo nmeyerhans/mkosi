@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -euo pipefail
+
 # Partition UUIDs are stored in various places within the images, including the
 # grub configuration and fstab, as well as in the partition/filesystem metadata
 # itself.
@@ -27,7 +29,10 @@ esac
 
 . "${outfile}"
 
-test -n "$PARTUUID_ROOT"
+if [ -z "$PARTUUID_ROOT" ]; then
+    echo "UUID generation failed" >&2
+    exit 1
+fi
 
 echo "Generated build-specific UUIDs:" >&2
 cat "${outfile}" >&2
