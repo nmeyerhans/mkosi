@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# SPDX-License-Identifier: GPL-2.0-or-later
 # Do most of the work of grub-install
 
 set -euE
